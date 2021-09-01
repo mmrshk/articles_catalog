@@ -29,11 +29,9 @@ pre-commit:
 pre-push:
   parallel: true
   commands:
-    bundle_audit:
-      run: bundle exec bundle audit --update --quiet
+    # bundle_audit:
+    #   run: bundle exec bundle audit --update --quiet
     brakeman:
-      run: bundle exec brakeman -q
-    database_consistency:
-      run: bundle exec database_consistency
-    bundler_leak:
-      run: bundle leak check --update
+    #   run: bundle exec brakeman -q
+    # database_consistency:
+    #   run: bundle exec database_consistency
