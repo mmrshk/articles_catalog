@@ -1,0 +1,39 @@
+linters:
+  parallel: true
+  commands:
+    1_rubocop:
+      run: bundle exec rubocop -a -c rubocop.yml --force-exclusion --display-cop-names {staged_files} && git add {staged_files}
+    2_fasterer:
+      glob: "*.rb"
+      run: bundle exec fasterer -c fasterer.yml
+    3_rails_best_practices:
+      glob: "*.rb"
+      run: bundle exec rails_best_practices {staged_files}
+    4_lol_dba:
+      run: lol_dba db:find_indexes
+
+generators:
+  parallel: true
+  commands:
+    update_model_annotations:
+      run: 'bundle exec annotate --models && git add app/models spec/factories'
+
+pre-commit:
+  parallel: false
+  commands:
+    1_linters:
+      run: lefthook run linters
+    # 2_generators:
+      # run: lefthook run generators
+
+pre-push:
+  parallel: true
+  commands:
+    bundle_audit:
+      run: bundle exec bundle audit --update --quiet
+    brakeman:
+      run: bundle exec brakeman -q
+    database_consistency:
+      run: bundle exec database_consistency
+    bundler_leak:
+      run: bundle leak check --update
