@@ -8,7 +8,8 @@ ruby '2.7.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 
-# Use PostgeSQL
+# Database logic
+gem 'aasm'
 gem 'pg'
 
 # FTS
@@ -34,15 +35,6 @@ gem 'pundit'
 gem 'sidekiq', '~> 6.1'
 gem 'sidekiq-batch', '~> 0.1.6'
 
-# AWS
-gem 'aws-sdk-rails'
-
-# Elasticsearch
-gem 'elasticsearch', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git'
-
-# Business logic
-gem 'search_object'
-
 group :development, :test do
   gem 'pry-rails'
 
@@ -52,9 +44,7 @@ group :development, :test do
   gem 'bullet'
   gem 'bundler-audit'
   gem 'database_consistency'
-  gem 'fasterer'
   gem 'lefthook'
-  gem 'lol_dba'
   gem 'rails_best_practices'
   gem 'rubocop'
   gem 'rubocop-rails'
@@ -67,8 +57,9 @@ end
 
 group :test do
   gem 'ffaker'
-  gem 'rspec'
+  gem 'rspec-rails'
   gem 'rspec-sidekiq'
+  gem 'shoulda-matchers', '~> 5.0'
   # gem 'capybara', '>= 2.15'
   # gem 'selenium-webdriver'
   # gem 'webdrivers'

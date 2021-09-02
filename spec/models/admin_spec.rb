@@ -14,5 +14,10 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class User < DefaultUser
+require 'rails_helper'
+
+RSpec.describe Admin, type: :model do
+  describe 'associations' do
+    it { is_expected.to have_many(:articles).class_name('Article') }
+  end
 end

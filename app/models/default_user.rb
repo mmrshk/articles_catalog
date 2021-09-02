@@ -14,5 +14,10 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class User < DefaultUser
+class DefaultUser < ApplicationRecord
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  validates :email, :type, presence: true
+  validates :reset_password_token, uniqueness: true
 end
