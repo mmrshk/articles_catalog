@@ -2,7 +2,7 @@ linters:
   parallel: true
   commands:
     1_rubocop:
-      run: bundle exec rubocop -a -c rubocop.yml --force-exclusion --display-cop-names {staged_files} && git add {staged_files}
+      run: bundle exec rubocop -A -c rubocop.yml --force-exclusion --display-cop-names {staged_files} && git add {staged_files}
     2_fasterer:
       glob: "*.rb"
       run: bundle exec fasterer -c fasterer.yml
