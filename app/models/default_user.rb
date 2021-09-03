@@ -13,11 +13,14 @@
 #  type                   :string           not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
 #
 class DefaultUser < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable, :validatable
 
   validates :email, :type, presence: true
-  validates :reset_password_token, uniqueness: true
+  # validates :reset_password_token, uniqueness: true
 end

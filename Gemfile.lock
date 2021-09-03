@@ -138,6 +138,8 @@ GEM
       activesupport (>= 3.0.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-proxy (0.7.0)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.4.1)
@@ -236,6 +238,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    semantic_range (3.0.0)
     sexp_processor (4.15.3)
     shoulda-matchers (5.0.0)
       activesupport (>= 5.2.0)
@@ -261,6 +264,11 @@ GEM
     uniform_notifier (1.14.2)
     warden (1.2.9)
       rack (>= 2.0.9)
+    webpacker (5.4.2)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -299,6 +307,7 @@ DEPENDENCIES
   shoulda-matchers (~> 5.0)
   sidekiq (~> 6.1)
   sidekiq-batch (~> 0.1.6)
+  webpacker
 
 RUBY VERSION
    ruby 2.7.1p83
