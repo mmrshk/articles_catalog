@@ -15,6 +15,8 @@
 #  updated_at   :datetime         not null
 #
 class Article < ApplicationRecord
+  has_rich_text :content
+
   belongs_to :admin, foreign_key: 'user_id', inverse_of: :article
   has_many :tags, dependent: :destroy
 
