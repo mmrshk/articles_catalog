@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: default_users
+# Table name: users
 #
 #  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
@@ -16,8 +16,5 @@
 #
 require 'rails_helper'
 
-RSpec.describe Admin, type: :model do
-  describe 'associations' do
-    it { is_expected.to have_many(:articles).class_name('Article') }
-  end
+RSpec.describe Admin, type: :model do # rubocop:disable RSpec/EmptyExampleGroup
 end

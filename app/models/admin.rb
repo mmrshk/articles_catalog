@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: default_users
+# Table name: users
 #
 #  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
@@ -14,8 +14,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class Admin < DefaultUser
-  has_many :articles, dependent: :destroy, foreign_key: 'default_user_id', inverse_of: :admin
+class Admin < User
+  has_many :articles, dependent: :destroy, foreign_key: 'user_id', inverse_of: :admin
 
   validates :type, presence: true
 end

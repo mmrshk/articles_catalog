@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: default_users
+# Table name: users
 #
 #  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
@@ -14,10 +14,5 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class DefaultUser < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-
-  validates :email, :type, presence: true
-  validates :reset_password_token, uniqueness: true
+class Reader < User
 end

@@ -59,7 +59,6 @@ group :test do
   gem 'ffaker'
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
-  gem 'shoulda-matchers', '~> 5.0'
   # gem 'capybara', '>= 2.15'
   # gem 'selenium-webdriver'
   # gem 'webdrivers'

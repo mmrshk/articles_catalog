@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: default_users
+# Table name: users
 #
 #  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
@@ -14,5 +14,9 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class User < DefaultUser
+class User < ApplicationRecord
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  validates :email, :type, presence: true
 end

@@ -7,7 +7,7 @@ class CreateArticles < ActiveRecord::Migration[6.0]
       t.tsvector :tsv_content
       t.string :status, null: false, default: 'draft'
 
-      t.references :default_user, foreign_key: true, null: false, index: true
+      t.references :user, foreign_key: true, null: false, index: true
 
       t.timestamps
     end
