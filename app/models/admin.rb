@@ -13,10 +13,6 @@
 #  type                   :string           not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  confirmation_token     :string
-#  confirmed_at           :datetime
-#  confirmation_sent_at   :datetime
-#  unconfirmed_email      :string
 #
 class Admin < User
   has_many :articles, dependent: :destroy, foreign_key: 'user_id', inverse_of: :admin
