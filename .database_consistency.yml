@@ -1,0 +1,13 @@
+
+DatabaseConsistencySettings:
+  color: true
+  log_level: DEBUG
+
+DefaultUser:
+  enabled: false
+  # confirmation_token:
+  #   MissingUniqueIndexChecker:
+  #     enabled: false
+  # reset_password_token:
+  #   MissingUniqueIndexChecker:
+  #     enabled: false
