@@ -3,14 +3,15 @@ linters:
   commands:
     1_rubocop:
       run: bundle exec rubocop -A -c rubocop.yml --force-exclusion --display-cop-names {staged_files} && git add {staged_files}
-    2_fasterer:
-      glob: "*.rb"
-      run: bundle exec fasterer -c fasterer.yml
+    2_bundle_audit:
+      run: bundle exec bundle audit
     3_rails_best_practices:
       glob: "*.rb"
       run: bundle exec rails_best_practices {staged_files}
-    4_lol_dba:
-      run: lol_dba db:find_indexes
+    4_brakeman:
+      run: bundle exec brakeman -o brakeman_output_file --faster
+    5_database_consistency:
+      run: bundle exec database_consistency
 
 generators:
   parallel: true
@@ -23,15 +24,7 @@ pre-commit:
   commands:
     1_linters:
       run: lefthook run linters
-    # 2_generators:
-      # run: lefthook run generators
+    2_generators:
+      run: lefthook run generators
 
-pre-push:
-  parallel: true
-  commands:
-    # bundle_audit:
-    #   run: bundle exec bundle audit --update --quiet
-    brakeman:
-    #   run: bundle exec brakeman -q
-    # database_consistency:
-    #   run: bundle exec database_consistency
+

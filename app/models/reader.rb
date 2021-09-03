@@ -14,8 +14,5 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class Admin < User
-  has_many :articles, dependent: :destroy, foreign_key: 'user_id', inverse_of: :admin
-
-  validates :type, presence: true
+class Reader < User
 end

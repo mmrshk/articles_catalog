@@ -10,35 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_02_084052) do
+ActiveRecord::Schema.define(version: 2021_09_02_103413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+  create_table "articles", force: :cascade do |t|
+    t.string "category", null: false
+    t.tsvector "tsv_category"
+    t.string "content", null: false
+    t.tsvector "tsv_content"
+    t.string "status", default: "draft", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+    t.index ["tsv_category"], name: "index_articles_on_tsv_category", using: :gin
+    t.index ["tsv_content"], name: "index_articles_on_tsv_content", using: :gin
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
-  create_table "articles", force: :cascade do |t|
-    t.string "type", null: false
-    t.string "content", null: false
-    t.tsvector "tsv_type"
-    t.tsvector "tsv_content"
-    t.string "status", default: "created", null: false
-    t.bigint "admin_id", null: false
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.tsvector "tsv_name", null: false
+    t.bigint "article_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["admin_id"], name: "index_articles_on_admin_id"
-    t.index ["tsv_content"], name: "index_articles_on_tsv_content", using: :gin
-    t.index ["tsv_type"], name: "index_articles_on_tsv_type", using: :gin
+    t.index ["article_id"], name: "index_tags_on_article_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,11 +44,13 @@ ActiveRecord::Schema.define(version: 2021_09_02_084052) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "articles", "admins"
+  add_foreign_key "articles", "users"
+  add_foreign_key "tags", "articles"
 end

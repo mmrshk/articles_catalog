@@ -14,8 +14,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class Admin < User
-  has_many :articles, dependent: :destroy, foreign_key: 'user_id', inverse_of: :admin
+require 'rails_helper'
 
-  validates :type, presence: true
+RSpec.describe Admin, type: :model do # rubocop:disable RSpec/EmptyExampleGroup
 end

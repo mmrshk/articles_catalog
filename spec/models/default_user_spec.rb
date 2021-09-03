@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: users
+# Table name: default_users
 #
 #  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
@@ -14,8 +14,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class Admin < User
-  has_many :articles, dependent: :destroy, foreign_key: 'user_id', inverse_of: :admin
+require 'rails_helper'
 
-  validates :type, presence: true
+RSpec.describe DefaultUser, type: :model do # rubocop:disable RSpec/EmptyExampleGroup
 end
