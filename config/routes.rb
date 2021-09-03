@@ -2,7 +2,6 @@
 
 Rails.application.routes.draw do
   devise_for :admins
-  # devise_for :users, controllers: { confirmations: 'confirmations' }
   devise_for :users
 
   root to: 'admin#show'

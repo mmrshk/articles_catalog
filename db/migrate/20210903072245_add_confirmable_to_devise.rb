@@ -4,12 +4,12 @@ class AddConfirmableToDevise < ActiveRecord::Migration[6.0]
     add_column :default_users, :confirmed_at, :datetime
     add_column :default_users, :confirmation_sent_at, :datetime
     add_index :default_users, :confirmation_token, unique: true
-    add_column :default_users, :unconfirmed_email, :string #? check if needed
+    add_column :default_users, :unconfirmed_email, :string
   end
 
   def down
     remove_index :default_users, :confirmation_token
     remove_columns :default_users, :confirmation_token, :confirmed_at, :confirmation_sent_at
-    remove_columns :default_users, :unconfirmed_email #? check if needed
+    remove_columns :default_users, :unconfirmed_email
   end
 end

@@ -22,5 +22,4 @@ class DefaultUser < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable, :validatable
 
   validates :email, :type, presence: true
-  # validates :reset_password_token, uniqueness: true
 end
