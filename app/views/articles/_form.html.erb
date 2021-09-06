@@ -1,6 +1,30 @@
-<%= form_with model: article do |form| %>
+<p> New article </p>
+<%= form_for @form, url: articles_path, method: "post" do |form| %>
+  <% if @form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@form.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+      <ul>
+      <% @form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="field">
+    <%= form.hidden_field :user_id, value: current_user.id.to_s %>
+    <%= form.label :category %>
+    <%= form.text_field :category %>
+
+    <%= form.label :tags %>
+    <%= form.fields_for :article_tags do |tags_form| %>
+      <%= tags_form.select :tag_id, @tag_decorator.tags_select_values %>
+    <% end %>
+
     <%= form.label :content %>
     <%= form.rich_text_area :content %>
+
+    <%= form.submit "Submit" %>
   </div>
 <% end %>

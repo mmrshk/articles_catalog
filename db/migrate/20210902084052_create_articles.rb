@@ -3,7 +3,6 @@ class CreateArticles < ActiveRecord::Migration[6.0]
     create_table :articles do |t|
       t.string :category, null: false
       t.tsvector :tsv_category
-      t.string :content, null: false
       t.tsvector :tsv_content
       t.string :status, null: false, default: 'draft'
 
