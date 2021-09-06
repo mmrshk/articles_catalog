@@ -1,0 +1,15 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category</th>
+      <th scope="col">Status</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Content</th>
+      <th scope="col" style="text-align: right">Articles count <%= Article.count %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "article_row", collection: Article.all, as: :article %>
+  </tbody>
+</table>

@@ -6,13 +6,10 @@ class ArticlesController < ApplicationController
   def show; end
 
   def new
-    # @form = current_user.articles.new()
     @form = ArticleForm.new
-    @tag_decorator = ::TagDecorator.new(Article.new)
   end
 
   def create
-    binding.pry
     @form = ArticleForm.new(article_persisted_params)
 
     if @form.submit
@@ -31,6 +28,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_persisted_params
-    params.require(:article_form).permit(:content, :user_id, :category, article_tags: [:tag_id])
+    params.require(:article_form).permit(:content, :user_id, :category, article_tags: [tag_id: []])
   end
 end

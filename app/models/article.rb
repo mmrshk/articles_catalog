@@ -18,9 +18,12 @@ class Article < ApplicationRecord
 
   has_rich_text :content
 
-  belongs_to :admin, foreign_key: 'user_id', inverse_of: :article
+  belongs_to :admin, foreign_key: 'user_id', inverse_of: :articles
+
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
+
+  accepts_nested_attributes_for :article_tags, allow_destroy: true
 
   aasm column: :status do
     state :draft, initial: true

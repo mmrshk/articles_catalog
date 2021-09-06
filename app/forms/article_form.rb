@@ -11,26 +11,24 @@ class ArticleForm
   def submit
     return false if invalid?
 
-    ActiveRecord::Base.transaction do
-      persist_article!
-      persist_article_tags!
-
-      raise ActiveRecord::Rollback unless errors.empty?
-    end
-
-    true
+    create_article!
+  rescue StandardError => e
+    errors.add(:base, e.message)
   end
 
   private
 
-  def persist_article!
-    @article ||= Article.create!(category: category, content: content, user_id: user_id)
+  def create_article!
+    @article = Article.create!(
+      category: category,
+      content: content,
+      user_id: user_id,
+      article_tags_attributes: prepared_article_tags_params
+    )
   end
 
-  # for future create butch of articles tags
-  def persist_article_tags!
-    # article_tags.each { |tag_id| ArticleTag.create(article_id: article.id, ) }
-
-    ArticleTag.create(article_id: article.id, tag_id: article_tags['tag_id'])
+  # prepare with adding _destroy
+  def prepared_article_tags_params
+    article_tags[:tag_id].map { |tag_id| { tag_id: tag_id } }
   end
 end

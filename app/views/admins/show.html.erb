@@ -1,4 +1,6 @@
 <%= render 'shared/header' %>
 
-<p class="navbar-text float-right">Articles<p>
-<p><%= link_to "New Article", new_article_path %></p>
+<%= link_to "New Article", new_article_path, class: "btn btn-light" %>
+<%= render partial: "articles_table" %>
+
+
