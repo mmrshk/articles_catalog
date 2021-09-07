@@ -10,8 +10,8 @@ linters:
       run: bundle exec rails_best_practices {staged_files}
     4_brakeman:
       run: bundle exec brakeman -o brakeman_output_file --faster
-    5_database_consistency:
-      run: bundle exec database_consistency
+    # 5_database_consistency:
+      # run: bundle exec database_consistency
 
 generators:
   parallel: true

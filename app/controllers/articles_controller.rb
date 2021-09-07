@@ -10,9 +10,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @form = ArticleForm.new(article_persisted_params)
+    @form = ArticleForm.new(articles_params)
 
-    if @form.submit
+    if @form.save
       redirect_to root_path, notice: 'New Article is created'
     else
       render :new
@@ -27,7 +27,7 @@ class ArticlesController < ApplicationController
 
   private
 
-  def article_persisted_params
+  def articles_params
     params.require(:article_form).permit(:content, :user_id, :category, article_tags: [tag_ids: []])
   end
 end

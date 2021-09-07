@@ -23,14 +23,13 @@ class Article < ApplicationRecord
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
 
-  accepts_nested_attributes_for :article_tags, allow_destroy: true
-
   # DOC:
   # Lifecycle for 1 article:
   # draft -> active
   # Lifecycle for 2 or more articles:
   # draft -> in_process -> active
   # draft -> in_process -> failed -> in_process -> active
+  # rubocop:disable Metrics/BlockLength
   aasm column: :status do
     state :draft, initial: true
     state :in_process
@@ -49,4 +48,5 @@ class Article < ApplicationRecord
       transitions from: %i[draft in_process failed], to: :active
     end
   end
+  # rubocop:enable Metrics/BlockLength
 end
