@@ -20,10 +20,14 @@ Metrics/BlockLength:
   Max: 5
   Exclude:
     - 'Gemfile'
+    - 'spec/**/*'
   IgnoredMethods:
     - context
     - describe
     - it
 
 Style/Documentation:
+  Enabled: false
+
+RSpec/MultipleExpectations:
   Enabled: false

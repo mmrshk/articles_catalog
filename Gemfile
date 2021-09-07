@@ -45,6 +45,7 @@ group :development, :test do
   gem 'bullet'
   gem 'bundler-audit'
   gem 'database_consistency'
+  gem 'factory_bot_rails'
   gem 'lefthook'
   gem 'rails_best_practices'
   gem 'rubocop'

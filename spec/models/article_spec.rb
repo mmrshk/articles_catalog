@@ -7,7 +7,6 @@
 #  id           :bigint           not null, primary key
 #  category     :string           not null
 #  tsv_category :tsvector
-#  content      :string           not null
 #  tsv_content  :tsvector
 #  status       :string           default("draft"), not null
 #  user_id      :bigint           not null

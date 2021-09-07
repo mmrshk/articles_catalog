@@ -18,8 +18,10 @@
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
 #
-class Admin < User
-  has_many :articles, dependent: :destroy, foreign_key: 'user_id', inverse_of: :admin
-
-  validates :type, presence: true
+FactoryBot.define do
+  factory :reader do
+    email { FFaker::Internet.email }
+    password { 'password' }
+    password_confirmation { 'password' }
+  end
 end

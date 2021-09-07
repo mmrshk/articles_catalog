@@ -1,0 +1,7 @@
+<tr>
+  <th scope="row"><%= article.id %></th>
+  <td><%= article.category %></td>
+  <td><%= article.status %></td>
+  <td><%= article.tags.pluck(:name).join(',') %></td>
+  <td colspan="2"><%= article.content %></td>
+</tr>
