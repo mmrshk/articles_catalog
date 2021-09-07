@@ -2,15 +2,15 @@
 
 # == Schema Information
 #
-# Table name: tags
+# Table name: article_tags
 #
 #  id         :bigint           not null, primary key
-#  name       :string           not null
-#  tsv_name   :tsvector
+#  article_id :bigint           not null
+#  tag_id     :bigint           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-require 'rails_helper'
-
-RSpec.describe Tag, type: :model do # rubocop:disable RSpec/EmptyExampleGroup
+FactoryBot.define do
+  factory :article_tag do
+  end
 end

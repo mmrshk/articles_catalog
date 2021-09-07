@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_09_06_072411) do
     t.bigint "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id", "tag_id"], name: "index_article_tags_on_article_id_and_tag_id"
     t.index ["article_id"], name: "index_article_tags_on_article_id"
     t.index ["tag_id"], name: "index_article_tags_on_tag_id"
   end
@@ -70,7 +71,7 @@ ActiveRecord::Schema.define(version: 2021_09_06_072411) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name", null: false
-    t.tsvector "tsv_name", null: false
+    t.tsvector "tsv_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

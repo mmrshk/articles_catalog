@@ -11,9 +11,12 @@ class ArticleForm
   def submit
     return false if invalid?
 
-    create_article!
-  rescue StandardError => e
-    errors.add(:base, e.message)
+    ActiveRecord::Base.transaction do
+      create_article!
+      article.activate!
+    rescue ActiveRecord::RecordInvalid => e
+      errors.add(:base, e.message)
+    end
   end
 
   private
@@ -27,8 +30,7 @@ class ArticleForm
     )
   end
 
-  # prepare with adding _destroy
   def prepared_article_tags_params
-    article_tags[:tag_id].map { |tag_id| { tag_id: tag_id } }
+    article_tags[:tag_ids].map { |tag_id| { tag_id: tag_id } }
   end
 end

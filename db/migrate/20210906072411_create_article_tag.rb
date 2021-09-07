@@ -6,5 +6,7 @@ class CreateArticleTag < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    add_index :article_tags, [:article_id, :tag_id]
   end
 end

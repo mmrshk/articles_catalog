@@ -25,27 +25,28 @@ class Article < ApplicationRecord
 
   accepts_nested_attributes_for :article_tags, allow_destroy: true
 
+  # DOC:
+  # Lifecycle for 1 article:
+  # draft -> active
+  # Lifecycle for 2 or more articles:
+  # draft -> in_process -> active
+  # draft -> in_process -> failed -> in_process -> active
   aasm column: :status do
     state :draft, initial: true
-    state :processed
+    state :in_process
     state :failed
-    state :retried
-    state :activated
+    state :active
 
     event :in_process do
-      transitions from: :draft, to: :processed
+      transitions from: %i[draft failed], to: :in_process
     end
 
     event :fail do
-      transitions from: :processed, to: :failed
-    end
-
-    event :retry do
-      transitions from: :failed, to: :retried
+      transitions from: :in_process, to: :failed
     end
 
     event :activate do
-      transitions from: %i[processed retried], to: :activated
+      transitions from: %i[draft in_process failed], to: :active
     end
   end
 end

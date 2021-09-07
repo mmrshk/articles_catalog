@@ -28,6 +28,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_persisted_params
-    params.require(:article_form).permit(:content, :user_id, :category, article_tags: [tag_id: []])
+    params.require(:article_form).permit(:content, :user_id, :category, article_tags: [tag_ids: []])
   end
 end

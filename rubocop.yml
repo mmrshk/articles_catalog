@@ -20,6 +20,7 @@ Metrics/BlockLength:
   Max: 5
   Exclude:
     - 'Gemfile'
+    - 'spec/**/*'
   IgnoredMethods:
     - context
     - describe
