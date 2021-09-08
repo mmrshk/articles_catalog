@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  def index; end
-
-  def show; end
+  before_action :set_article, only: %i[edit update]
 
   def new
-    @form = ArticleForm.new
+    @form = Article::CreateForm.new({}, current_user)
   end
 
   def create
-    @form = ArticleForm.new(articles_params)
+    @form = Article::CreateForm.new(articles_create_params, current_user)
 
     if @form.save
       redirect_to root_path, notice: 'New Article is created'
@@ -21,13 +19,29 @@ class ArticlesController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    @form = Article::UpdateForm.new(articles_update_params, current_user, @article)
+
+    if @form.save
+      redirect_to root_path, notice: 'Article is updated'
+    else
+      render :edit
+    end
+  end
 
   def destroy; end
 
   private
 
-  def articles_params
-    params.require(:article_form).permit(:content, :user_id, :category, article_tags: [tag_ids: []])
+  def set_article
+    @article = Article.find_by(id: params[:id])
+  end
+
+  def articles_create_params
+    params.require(:article_create_form).permit(:content, :category, article_tags: [tag_ids: []])
+  end
+
+  def articles_update_params
+    params.require(:article).permit(:content, :category, article_tags: [tag_ids: []])
   end
 end

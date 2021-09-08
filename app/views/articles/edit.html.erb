@@ -1,19 +1,19 @@
-<p class="font-weight-bold"> New article </p>
+<%= render 'shared/header' %>
+<p class="font-weight-bold"> Edit article </p>
 
-<%= form_for @form, url: articles_path, method: "post" do |form| %>
-  <% if @form.errors.any? %>
+<%= form_for @article, method: "put" do |form| %>
+  <% if @article.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@form.errors.count, "error") %> prohibited this article from being saved:</h2>
+      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being updated:</h2>
 
       <ul>
-        <% @form.errors.full_messages.each do |message| %>
+        <% @article.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <%= form.hidden_field :user_id, value: current_user.id.to_s %>
   <div class="form-group">
     <%= form.label :category %>
     <%= form.text_field :category %>
@@ -27,7 +27,7 @@
 
   <div class="form-group">
     <%= form.label :content %>
-    <%= rich_text_area_tag "article_form[content]", form.object.content %>
+    <%= rich_text_area_tag "article[content]", form.object.content %>
   </div>
 
   <%= form.submit "Submit", class: "btn btn-primary" %>

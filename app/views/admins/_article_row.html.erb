@@ -3,5 +3,6 @@
   <td><%= article.category %></td>
   <td><%= article.status %></td>
   <td><%= article.tags.pluck(:name).join(',') %></td>
+  <td><%= link_to 'Edit', edit_article_path(article.id)%></td>
   <td colspan="2"><%= article.content %></td>
 </tr>
