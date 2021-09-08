@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# module Article
-  class Article::CreateForm < Article::ValidateForm
+module Articles
+  class CreateForm < Articles::BaseForm
     def initialize(params, user)
       @user = user
 
@@ -30,4 +30,4 @@
       @article = Article.create!(category: category, content: content, user_id: user.id)
     end
   end
-# end
+end
