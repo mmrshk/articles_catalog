@@ -2,12 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Article::UpdateForm do
-  subject(:form) { described_class.new(params, current_admin, article).save }
+RSpec.describe Articles::CreateForm do
+  subject(:form) { described_class.new(params, current_admin).save }
 
   let(:current_admin) { create(:admin) }
-  let!(:article) { create(:article, user_id: current_admin.id) }
-
   let(:tags) { create_list(:tag, 2) }
   let(:content) { FFaker::Lorem.paragraph }
   let(:category) { FFaker::Lorem.word }
@@ -18,18 +16,18 @@ RSpec.describe Article::UpdateForm do
         {
           content: content,
           category: category,
-          article_tags: { tag_ids: article.tags.pluck(:id) + tags.pluck(:id) }
+          article_tags: { tag_ids: tags.pluck(:id) }
         }
       end
 
-      it 'not changes Articles count' do
-        expect { form }.not_to change(Article, :count)
+      it 'changes Articles count' do
+        expect { form }.to change(Article, :count).from(0).to(1)
       end
 
       it 'changes ArticleTags count' do
-        expect { form }.to change(ArticleTag, :count).from(2).to(4)
+        expect { form }.to change(ArticleTag, :count).from(0).to(2)
 
-        expect(current_admin.articles.first.article_tags.count).to eq(4)
+        expect(current_admin.articles.first.article_tags.count).to eq(2)
       end
 
       it 'creates a new instance of Article with correct values' do
@@ -51,9 +49,7 @@ RSpec.describe Article::UpdateForm do
 
   describe 'fail' do
     context 'when user is reader' do
-      let(:current_admin) { create(:reader) }
-      let(:admin) { create(:admin) }
-      let!(:article) { create(:article, user_id: admin.id) }
+      let!(:current_admin) { create(:reader) }
 
       let(:params) do
         {
@@ -121,7 +117,7 @@ RSpec.describe Article::UpdateForm do
     end
 
     context 'when raises error' do
-      before { allow(article).to receive(:update!).and_raise(ActiveRecord::RecordInvalid) }
+      before { allow(Article).to receive(:create!).and_raise(ActiveRecord::RecordInvalid) }
 
       let(:params) do
         {
