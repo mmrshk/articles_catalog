@@ -25,7 +25,7 @@ module Articles
     def update_article_tags!
       article.article_tags.destroy_all
 
-      article_tags[:tag_ids].each { |tag_id| article.article_tags.create!(tag_id: tag_id) }
+      tags.each { |tag| article.article_tags.create!(tag: tag) }
     end
 
     def update_article!

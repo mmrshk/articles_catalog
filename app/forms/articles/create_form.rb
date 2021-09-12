@@ -23,11 +23,11 @@ module Articles
     private
 
     def create_article_tags!
-      article_tags[:tag_ids].each { |tag_id| article.article_tags.create!(tag_id: tag_id) }
+      tags.each { |tag| article.article_tags.create!(tag: tag) }
     end
 
     def create_article!
-      @article = Article.create!(category: category, content: content, user_id: user.id)
+      @article = Article.create!(category: category, content: content, user: user)
     end
   end
 end

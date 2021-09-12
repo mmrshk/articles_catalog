@@ -1,7 +1,7 @@
 class CreateArticles < ActiveRecord::Migration[6.0]
   def change
     create_table :articles do |t|
-      t.string :category, null: false
+      t.string :category
       t.tsvector :tsv_category
       t.tsvector :tsv_content
       t.string :status, null: false, default: 'draft'

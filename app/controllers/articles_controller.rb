@@ -4,11 +4,11 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[edit update]
 
   def new
-    @form = Article::CreateForm.new({}, current_user)
+    @form = Articles::CreateForm.new({}, current_user)
   end
 
   def create
-    @form = Article::CreateForm.new(articles_create_params, current_user)
+    @form = Articles::CreateForm.new(articles_create_params, current_user)
 
     if @form.save
       redirect_to root_path, notice: 'New Article is created'
@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def update
-    @form = Article::UpdateForm.new(articles_update_params, current_user, @article)
+    @form = Articles::UpdateForm.new(articles_update_params, current_user, @article)
 
     if @form.save
       redirect_to root_path, notice: 'Article is updated'
@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
   private
 
   def set_article
-    @article = Article.find_by(id: params[:id])
+    @article = Article.find(params[:id])
   end
 
   def articles_create_params
