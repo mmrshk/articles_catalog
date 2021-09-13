@@ -9,6 +9,8 @@ class ArticleAttachmentsUploadJob < ApplicationJob
 
       ArticleAttachment.create!(attachment: attachment, article: article)
       article.inactivate!
+
+      ActionCable.server.broadcast('notice_channel', { id: article.id, content: 'article already procceeded' })
     rescue ActiveRecord::RecordInvalid => e
       puts e
     end

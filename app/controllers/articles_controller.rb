@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[edit update]
+  before_action :set_article, only: %i[edit update destroy]
 
   def new
     @form = Articles::CreateForm.new({}, current_user)
@@ -29,7 +29,9 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    redirect_to root_path, notice: 'Article is deleted' if @article.destroy!
+  end
 
   private
 

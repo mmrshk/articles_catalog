@@ -1,5 +1,5 @@
 <%= form_for @form, url: upload_path, method: "post", html: { multipart: true } do |f| %>
-  <% 1.times do |index| %>
+  <% 2.times do |index| %>
     <%= f.label :attachment %>
     <%= f.file_field :"attachment_#{index}", name: "attachment[#{index}]" %>
     <br>

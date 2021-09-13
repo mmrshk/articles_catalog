@@ -20,7 +20,11 @@
   <div class="form-group">
     <%= f.label :tags %>
     <%= f.fields_for :article_tags do |tags_form| %>
-      <%= tags_form.select :tag_ids, Tag.pluck(:name, :id), {include_hidden: false}, { class: "selectpicker", multiple: true, data: { live_search: 'true' } } %>
+      <%= tags_form.select :tag_ids,
+        Tag.pluck(:name, :id),
+        {include_hidden: false, selected: @article.article_tags.pluck(:id) },
+        { class: "selectpicker", multiple: true, data: { live_search: 'true' } }
+      %>
     <% end %>
   </div>
 

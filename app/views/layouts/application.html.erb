@@ -16,7 +16,15 @@
   </head>
 
   <body>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div id="article-notice"></div>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
     <%= render 'shared/header' %>
+
     <div class="container-fluid">
       <%= yield %>
     </div>

@@ -3,6 +3,9 @@
   <td><%= article.category || 'No Category' %></td>
   <td><%= article.status %></td>
   <td><%= article.tags.pluck(:name).join(',') %></td>
-  <td><%= link_to 'Edit', edit_article_path(article.id)%></td>
+  <td>
+    <%= link_to 'Edit', edit_article_path(article.id)%>
+    <%= link_to 'Delete', article_path(article.id), data: { method: :delete }%>
+  </td>
   <td colspan="2"><%= article.content %></td>
 </tr>

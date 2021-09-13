@@ -11,6 +11,6 @@
     </tr>
   </thead>
   <tbody>
-    <%= render partial: "article_row", collection: Article.all, as: :article %>
+    <%= render partial: "article_row", collection: Article.all.order(id: :desc), as: :article %>
   </tbody>
 </table>

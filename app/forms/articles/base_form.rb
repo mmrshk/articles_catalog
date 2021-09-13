@@ -16,10 +16,11 @@ module Articles
     end
 
     def tag_ids_exists?
+      @tags = []
+
       errors.add(:base, 'Tag ids invalid') unless article_tags[:tag_ids].all? do |tag_id|
         tag = Tag.find_by(id: tag_id)
 
-        @tags = []
         @tags << tag if tag
 
         tag
