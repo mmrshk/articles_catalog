@@ -1,22 +1,13 @@
 <p class="font-weight-bold"> New article </p>
 
 <%= form_for @form, url: articles_path, method: "post" do |f| %>
-  <% if @form.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@form.errors.count, "error") %> prohibited this article from being saved:</h2>
-
-      <ul>
-        <% @form.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render partial: "shared" %>
 
   <div class="form-group">
     <%= f.label :category %>
     <%= f.text_field :category %>
   </div>
+
   <div class="form-group">
     <%= f.label :tags %>
     <%= f.fields_for :article_tags do |tags_form| %>
@@ -26,7 +17,7 @@
 
   <div class="form-group">
     <%= f.label :content %>
-    <%= rich_text_area_tag "article_create_form[content]", f.object.content %>
+    <%= rich_text_area_tag "articles_base_form[content]", f.object.content %>
   </div>
 
   <%= f.submit "Submit", class: "btn btn-primary" %>

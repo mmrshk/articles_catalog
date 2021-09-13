@@ -6,6 +6,7 @@
   <td>
     <%= link_to 'Edit', edit_article_path(article.id)%>
     <%= link_to 'Delete', article_path(article.id), data: { method: :delete }%>
+    <%= link_to 'Activate', activate_article_path(article.id), data: { method: :post } unless article.active? %>
   </td>
   <td colspan="2"><%= article.content %></td>
 </tr>

@@ -2,17 +2,16 @@
 
 # == Schema Information
 #
-# Table name: article_attachments
+# Table name: article_uploads
 #
 #  id         :bigint           not null, primary key
-#  name       :string
 #  attachment :string
-#  article_id :bigint           not null
+#  article_id :bigint
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class ArticleAttachment < ApplicationRecord
-  belongs_to :article
+class ArticleUpload < ApplicationRecord
+  belongs_to :article, optional: true
 
   mount_uploader :attachment, FileUploader
 end

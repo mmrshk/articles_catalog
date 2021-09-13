@@ -1,9 +1,36 @@
-<%= form_for @form, url: upload_path, method: "post", html: { multipart: true } do |f| %>
-  <% 2.times do |index| %>
-    <%= f.label :attachment %>
-    <%= f.file_field :"attachment_#{index}", name: "attachment[#{index}]" %>
-    <br>
-  <% end %>
+<%= form_for @article_upload, url: upload_article_attachments_path, method: "post", html: { multipart: true } do |f| %>
+  <div class="attachment-container">
+    <div class="attachment-item">
+    </div>
+  </div>
 
   <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>
+
+<br>
+<button class="add-article btn btn-primary">Add one more article</button>
+
+<script>
+  const addArticleBtn = document.getElementsByClassName("add-article")[0];
+  const attachmentContainer = document.getElementsByClassName("attachment-container")[0];
+
+  const addArticle = () => {
+    const itemContainer = document.createElement('div');
+    const itemLabel = document.createElement('label');
+    const itemUploader = document.createElement('input');
+    const index = attachmentContainer.getElementsByClassName('attachment-item').length - 1;
+
+    itemContainer.classList.add('attachment-item');
+    itemLabel.textContent = 'Attachment: ';
+    itemUploader.setAttribute("type", "file");
+    itemUploader.id = `attachment_${index}`;
+    itemUploader.name = `attachment[${index}]`;
+
+    itemContainer.appendChild(itemLabel);
+    itemContainer.appendChild(itemUploader);
+
+    attachmentContainer.appendChild(itemContainer)
+  };
+
+  addArticleBtn.addEventListener('click', addArticle);
+</script>

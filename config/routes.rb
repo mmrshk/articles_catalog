@@ -16,8 +16,15 @@ Rails.application.routes.draw do
 
   resources :admins, only: :show
   resources :readers, only: :show
-  resources :articles
+  resources :articles do
+    member do
+      post 'activate'
+    end
+  end
 
-  post 'upload', controller: 'article_attachments'
-  resources :article_attachments
+  resources :article_attachments do
+    collection do
+      post 'upload'
+    end
+  end
 end

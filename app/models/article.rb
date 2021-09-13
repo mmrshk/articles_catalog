@@ -20,7 +20,7 @@ class Article < ApplicationRecord
 
   belongs_to :admin, foreign_key: 'user_id', inverse_of: :articles
 
-  has_one :article_attachment, dependent: :destroy
+  has_one :article_upload, dependent: :destroy
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
 
@@ -47,7 +47,7 @@ class Article < ApplicationRecord
     end
 
     event :activate do
-      transitions from: %i[draft in_process failed], to: :active
+      transitions from: %i[draft in_process failed inactive], to: :active
     end
 
     event :inactivate do

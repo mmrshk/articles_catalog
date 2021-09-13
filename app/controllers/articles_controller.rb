@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[edit update destroy]
+  before_action :set_article, only: %i[edit update destroy activate]
 
   def new
-    @form = Articles::CreateForm.new({}, current_user)
+    @form = Articles::BaseForm.new({}, current_user)
   end
 
   def create
-    @form = Articles::CreateForm.new(articles_create_params, current_user)
+    @form = Articles::CreateForm.new(articles_params, current_user)
 
     if @form.save
       redirect_to root_path, notice: 'New Article is created'
@@ -17,10 +17,12 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @form = Articles::BaseForm.new({}, current_user)
+  end
 
   def update
-    @form = Articles::UpdateForm.new(articles_update_params, current_user, @article)
+    @form = Articles::UpdateForm.new(articles_params, current_user, @article)
 
     if @form.save
       redirect_to root_path, notice: 'Article is updated'
@@ -30,7 +32,19 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    redirect_to root_path, notice: 'Article is deleted' if @article.destroy!
+    if @article.destroy!
+      redirect_to root_path, notice: 'Article is deleted'
+    else
+      flash[:notice] = @article.errors
+    end
+  end
+
+  def activate
+    if @article.activate!
+      redirect_to root_path, notice: 'Article was activated'
+    else
+      flash[:notice] = @article.errors
+    end
   end
 
   private
@@ -39,11 +53,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def articles_create_params
-    params.require(:article_create_form).permit(:content, :category, article_tags: [tag_ids: []])
-  end
-
-  def articles_update_params
-    params.require(:article).permit(:content, :category, article_tags: [tag_ids: []])
+  def articles_params
+    params.require(:articles_base_form).permit(:content, :category, article_tags: [tag_ids: []])
   end
 end

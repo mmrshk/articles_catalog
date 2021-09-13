@@ -2,13 +2,6 @@
 
 module Articles
   class UpdateForm < Articles::BaseForm
-    def initialize(params, user, article)
-      @article = article
-      @user = user
-
-      super(params)
-    end
-
     def save
       return false if invalid?
 
@@ -25,7 +18,7 @@ module Articles
     def update_article_tags!
       article.article_tags.destroy_all
 
-      tags.each { |tag| article.article_tags.create!(tag: tag) }
+      create_article_tags!
     end
 
     def update_article!

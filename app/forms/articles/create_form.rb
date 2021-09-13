@@ -2,12 +2,6 @@
 
 module Articles
   class CreateForm < Articles::BaseForm
-    def initialize(params, user)
-      @user = user
-
-      super(params)
-    end
-
     def save
       return false if invalid?
 
@@ -22,12 +16,8 @@ module Articles
 
     private
 
-    def create_article_tags!
-      tags.each { |tag| article.article_tags.create!(tag: tag) }
-    end
-
     def create_article!
-      @article = Article.create!(category: category, content: content, user: user)
+      @article = Article.create!(category: category, content: content, user_id: user.id)
     end
   end
 end

@@ -46,15 +46,6 @@ ActiveRecord::Schema.define(version: 2021_09_09_091939) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "article_attachments", force: :cascade do |t|
-    t.string "name"
-    t.string "attachment"
-    t.bigint "article_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["article_id"], name: "index_article_attachments_on_article_id"
-  end
-
   create_table "article_tags", force: :cascade do |t|
     t.bigint "article_id", null: false
     t.bigint "tag_id", null: false
@@ -63,6 +54,14 @@ ActiveRecord::Schema.define(version: 2021_09_09_091939) do
     t.index ["article_id", "tag_id"], name: "index_article_tags_on_article_id_and_tag_id"
     t.index ["article_id"], name: "index_article_tags_on_article_id"
     t.index ["tag_id"], name: "index_article_tags_on_tag_id"
+  end
+
+  create_table "article_uploads", force: :cascade do |t|
+    t.string "attachment"
+    t.bigint "article_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_article_uploads_on_article_id"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -104,8 +103,8 @@ ActiveRecord::Schema.define(version: 2021_09_09_091939) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "article_attachments", "articles"
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
+  add_foreign_key "article_uploads", "articles"
   add_foreign_key "articles", "users"
 end

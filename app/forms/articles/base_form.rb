@@ -4,27 +4,34 @@ module Articles
   class BaseForm
     include ActiveModel::Model
 
-    attr_accessor :content, :category, :article_tags, :user, :article, :tags
+    attr_accessor :content, :category, :article_tags, :user, :article
 
     validates :category, :content, :article_tags, presence: true
     validate :user_is_admin?, :tag_ids_exists?
 
+    def initialize(params, user, article = nil)
+      @article = article
+      @user = user
+
+      super(params)
+    end
+
     private
+
+    def create_article_tags!
+      tags.each { |tag| article.article_tags.create!(tag: tag) }
+    end
 
     def user_is_admin?
       errors.add(:base, 'You are not authorised for this action') unless user.is_a?(Admin)
     end
 
     def tag_ids_exists?
-      @tags = []
+      errors.add(:base, 'Tag ids invalid') unless article_tags[:tag_ids].count == tags.count
+    end
 
-      errors.add(:base, 'Tag ids invalid') unless article_tags[:tag_ids].all? do |tag_id|
-        tag = Tag.find_by(id: tag_id)
-
-        @tags << tag if tag
-
-        tag
-      end
+    def tags
+      Tag.where(id: article_tags[:tag_ids])
     end
   end
 end

@@ -2,14 +2,11 @@
 
 class ArticleAttachmentsController < ApplicationController
   def new
-    @form = ArticleAttachment.new
+    @article_upload = ArticleUpload.new
   end
 
   def upload
-    params[:attachment].each_value do |attachment|
-      ArticleAttachmentsUploadJob.perform_now(attachment, current_user.id)
-      # ArticleAttachmentsUploadJob.set(wait: 1.minute).perform_later(attachment, current_user.id)
-    end
+    ArticleUploadService.call(params[:attachment], current_user)
 
     redirect_to root_path
   end

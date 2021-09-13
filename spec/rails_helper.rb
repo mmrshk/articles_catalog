@@ -16,14 +16,10 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-# require "action_text/system_test_helper"
-
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-
-  # config.include ActionText::SystemTestHelper, type: :system
 end
