@@ -22,12 +22,27 @@ FactoryBot.define do
 
     category { FFaker::Lorem.word }
     content { FFaker::Lorem.paragraph } # how to be here, it must be ActionText value
-    status { 'active' }
 
     after(:create) do |article, evaluator|
       if evaluator.with_article_tags
         evaluator.article_tags_count.times { create(:article_tag, tag_id: create(:tag).id, article_id: article.id) }
       end
+    end
+
+    trait :in_process do
+      status { 'in_process' }
+    end
+
+    trait :failed do
+      status { 'failed' }
+    end
+
+    trait :active do
+      status { 'active' }
+    end
+
+    trait :inactive do
+      status { 'inactive' }
     end
   end
 end

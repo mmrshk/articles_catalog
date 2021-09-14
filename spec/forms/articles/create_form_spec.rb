@@ -21,11 +21,11 @@ RSpec.describe Articles::CreateForm do
       end
 
       it 'changes Articles count' do
-        expect { form }.to change(Article, :count).from(0).to(1)
+        expect { form }.to change(Article, :count).by(1)
       end
 
       it 'changes ArticleTags count' do
-        expect { form }.to change(ArticleTag, :count).from(0).to(2)
+        expect { form }.to change(ArticleTag, :count).by(2)
 
         expect(current_admin.articles.first.article_tags.count).to eq(2)
       end

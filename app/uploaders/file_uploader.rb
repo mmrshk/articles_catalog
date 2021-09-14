@@ -14,6 +14,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def read
+    # type here can be anyone, check explicitly each type
     if file.content_type == 'text/plain'
       File.read file.file
     else
@@ -22,7 +23,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
       doc.paragraphs.each { |paragraph| paragraphs << paragraph }
 
-      paragraphs.join("<br>").html_safe
+      paragraphs.join('<br>').html_safe
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArticleAttachmentsUploadJob < ApplicationJob
-  queue_as :default
+  queue_as :uploaders
 
   def perform(article_upload, current_user_id)
     ActiveRecord::Base.transaction do

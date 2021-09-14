@@ -31,7 +31,7 @@ module Articles
     end
 
     def tags
-      Tag.where(id: article_tags[:tag_ids])
+      @tags ||= Tag.where(id: article_tags[:tag_ids])
     end
   end
 end

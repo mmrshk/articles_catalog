@@ -17,7 +17,6 @@ module Articles
 
     def update_article_tags!
       article.article_tags.destroy_all
-
       create_article_tags!
     end
 

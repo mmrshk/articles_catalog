@@ -27,7 +27,7 @@ RSpec.describe Articles::UpdateForm do
       end
 
       it 'changes ArticleTags count' do
-        expect { form }.to change(ArticleTag, :count).from(2).to(4)
+        expect { form }.to change(ArticleTag, :count).by(2)
 
         expect(current_admin.articles.first.article_tags.count).to eq(4)
       end
@@ -39,12 +39,6 @@ RSpec.describe Articles::UpdateForm do
 
         expect(article.content.to_plain_text).to eq(content)
         expect(article.category).to eq(category)
-      end
-
-      it 'sets correct status' do
-        form
-
-        expect(current_admin.articles.first).to be_active
       end
     end
   end
