@@ -1,6 +1,6 @@
 <p class="font-weight-bold"> Edit article </p>
 
-<%= form_for @form, url: article_path, method: "put" do |f| %>
+<%= form_for @form, as: :articles_base_form, url: article_path, method: "put" do |f| %>
   <%= render partial: "errors" %>
 
   <div id="error_explanation">
