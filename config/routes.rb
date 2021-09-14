@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :article_attachments do
+  resources :article_uploads do
     collection do
       post 'upload'
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ArticleAttachmentsController < ApplicationController
+class ArticleUploadsController < ApplicationController
   def new
     @article_upload = ArticleUpload.new
   end

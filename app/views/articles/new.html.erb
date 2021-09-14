@@ -1,7 +1,7 @@
 <p class="font-weight-bold"> New article </p>
 
 <%= form_for @form, url: articles_path, method: "post" do |f| %>
-  <%= render partial: "shared" %>
+  <%= render partial: "errors" %>
 
   <div class="form-group">
     <%= f.label :category %>

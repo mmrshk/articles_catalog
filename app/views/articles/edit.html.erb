@@ -1,7 +1,15 @@
 <p class="font-weight-bold"> Edit article </p>
 
 <%= form_for @form, url: article_path, method: "put" do |f| %>
-  <%= render partial: "shared" %>
+  <%= render partial: "errors" %>
+
+  <div id="error_explanation">
+    <ul>
+      <% @article.upload_errors.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
 
   <div class="form-group">
     <%= f.label :category %>
@@ -13,7 +21,7 @@
     <%= f.fields_for :article_tags do |tags_form| %>
       <%= tags_form.select :tag_ids,
         Tag.pluck(:name, :id),
-        {include_hidden: false, selected: @article.article_tags.map { |t| t.tag.id }},
+        {include_hidden: false, selected: @article.tags.pluck(:id) },
         {class: "selectpicker", multiple: true, data: {live_search: 'true'}}
       %>
     <% end %>

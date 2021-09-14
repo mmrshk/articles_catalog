@@ -21,7 +21,7 @@ module Articles
     end
 
     def update_article!
-      article.update!(category: category, content: content)
+      article.update!(category: category, content: content, upload_errors: [])
     end
   end
 end

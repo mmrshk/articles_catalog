@@ -4,14 +4,15 @@
 #
 # Table name: articles
 #
-#  id           :bigint           not null, primary key
-#  category     :string
-#  tsv_category :tsvector
-#  tsv_content  :tsvector
-#  status       :string           default("draft"), not null
-#  user_id      :bigint           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id            :bigint           not null, primary key
+#  category      :string
+#  tsv_category  :tsvector
+#  tsv_content   :tsvector
+#  upload_errors :text             default([]), is an Array
+#  status        :string           default("draft"), not null
+#  user_id       :bigint           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 require 'rails_helper'
 

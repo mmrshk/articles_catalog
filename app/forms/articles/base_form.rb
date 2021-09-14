@@ -27,7 +27,7 @@ module Articles
     end
 
     def tag_ids_exists?
-      errors.add(:base, 'Tag ids invalid') unless article_tags[:tag_ids].count == tags.count
+      errors.add(:base, 'Tag ids invalid') unless article_tags && article_tags[:tag_ids].count == tags.count
     end
 
     def tags
