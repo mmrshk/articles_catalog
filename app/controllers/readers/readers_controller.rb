@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class Readers::ReadersController < ApplicationController
-  def show; end
+module Readers
+  class ReadersController < ApplicationController
+    def show; end
+  end
 end
-

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   scope module: 'admins' do
     resources :admins, only: :show
 
-    resources :articles do
+    resources :articles, except: :index do
       member do
         post 'activate'
       end
@@ -32,7 +32,6 @@ Rails.application.routes.draw do
 
   scope module: 'readers' do
     resources :readers, only: :show
-
-    get :search, to: 'search#index'
+    resources :articles, only: :index
   end
 end

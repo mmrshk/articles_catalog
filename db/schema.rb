@@ -10,19 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_15_073650) do
+ActiveRecord::Schema.define(version: 2021_09_15_113024) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
+    t.tsvector "tsv_body"
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+    t.index ["tsv_body"], name: "index_action_text_rich_texts_on_tsv_body", using: :gin
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -51,7 +54,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_073650) do
     t.bigint "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["article_id", "tag_id"], name: "index_article_tags_on_article_id_and_tag_id"
+    t.index ["article_id", "tag_id"], name: "index_article_tags_on_article_id_and_tag_id", unique: true
     t.index ["article_id"], name: "index_article_tags_on_article_id"
     t.index ["tag_id"], name: "index_article_tags_on_tag_id"
   end
@@ -83,6 +86,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_073650) do
     t.tsvector "tsv_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["tsv_name"], name: "index_tags_on_tsv_name", using: :gin
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,12 +118,12 @@ ActiveRecord::Schema.define(version: 2021_09_15_073650) do
       articles.category,
       articles.tsv_category,
       action_text_rich_texts.body AS term,
-      articles.tsv_content AS tsv_term,
+      action_text_rich_texts.tsv_body AS tsv_term,
       tags.name AS tag_name,
-      tags.tsv_name AS tas_tag_name
+      tags.tsv_name AS tsv_tag_name
      FROM (((articles
+       JOIN action_text_rich_texts ON (((action_text_rich_texts.record_id = articles.id) AND ((action_text_rich_texts.record_type)::text = 'Article'::text) AND ((action_text_rich_texts.name)::text = 'content'::text))))
        JOIN article_tags ON ((article_tags.article_id = articles.id)))
-       JOIN tags ON ((tags.id = article_tags.tag_id)))
-       JOIN action_text_rich_texts ON (((action_text_rich_texts.record_id = articles.id) AND ((action_text_rich_texts.record_type)::text = 'Article'::text) AND ((action_text_rich_texts.name)::text = 'content'::text))));
+       JOIN tags ON ((tags.id = article_tags.tag_id)));
   SQL
 end

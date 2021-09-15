@@ -1,0 +1,17 @@
+<%= binding.pry %>
+
+<%= @articles_searches.to_a.each { |a| a.article_id } %>
+<% @articles_searches.each do |result| %>
+  ddd
+  <p> <%= result.id %> </p>
+<% end %>
+
+<%= form_with url: articles_path, method: :get do |form| %>
+  <div class="input-group mb-3">
+    <%= form.text_field :query, class: "form-control", placeholder: 'Fill in...' %>
+    <div class="input-group-append">
+      <%= form.submit "Search", class: "btn btn-outline-secondary"%>
+    </div>
+  </div>
+<% end %>
+
