@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_09_091939) do
+ActiveRecord::Schema.define(version: 2021_09_15_073650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,4 +108,18 @@ ActiveRecord::Schema.define(version: 2021_09_09_091939) do
   add_foreign_key "article_tags", "tags"
   add_foreign_key "article_uploads", "articles"
   add_foreign_key "articles", "users"
+
+  create_view "articles_searches", sql_definition: <<-SQL
+      SELECT articles.id AS article_id,
+      articles.category,
+      articles.tsv_category,
+      action_text_rich_texts.body AS term,
+      articles.tsv_content AS tsv_term,
+      tags.name AS tag_name,
+      tags.tsv_name AS tas_tag_name
+     FROM (((articles
+       JOIN article_tags ON ((article_tags.article_id = articles.id)))
+       JOIN tags ON ((tags.id = article_tags.tag_id)))
+       JOIN action_text_rich_texts ON (((action_text_rich_texts.record_id = articles.id) AND ((action_text_rich_texts.record_type)::text = 'Article'::text) AND ((action_text_rich_texts.name)::text = 'content'::text))));
+  SQL
 end
