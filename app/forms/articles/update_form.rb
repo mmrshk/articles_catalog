@@ -8,6 +8,7 @@ module Articles
       ActiveRecord::Base.transaction do
         update_article!
         update_article_tags!
+        destroy_article_upload!
       rescue ActiveRecord::RecordInvalid => e
         errors.add(:base, e.message)
       end
@@ -21,7 +22,11 @@ module Articles
     end
 
     def update_article!
-      article.update!(category: category, content: content, upload_errors: [])
+      article.update!(category: category, content: content, status: 'active')
+    end
+
+    def destroy_article_upload!
+      article.article_upload.destroy!
     end
   end
 end

@@ -1,15 +1,17 @@
 <p class="font-weight-bold"> Edit article </p>
 
-<%= form_for @form, as: :articles_base_form, url: article_path, method: "put" do |f| %>
+<%= form_for @form, as: :articles_form, url: article_path, method: "put" do |f| %>
   <%= render partial: "errors" %>
 
-  <div id="error_explanation">
-    <ul>
-      <% @article.upload_errors.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
+  <% if @article.article_upload %>
+    <div id="error_explanation">
+      <ul>
+        <% @article.article_upload.upload_errors.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= f.label :category %>
@@ -29,7 +31,7 @@
 
   <div class="form-group">
     <%= f.label :content %>
-    <%= rich_text_area_tag "articles_base_form[content]", @article.content || f.object.content %>
+    <%= rich_text_area_tag "articles_form[content]", @article.content || f.object.content %>
   </div>
 
   <%= f.submit "Submit", class: "btn btn-primary" %>
