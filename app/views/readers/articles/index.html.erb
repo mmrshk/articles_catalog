@@ -1,8 +1,8 @@
-<%= form_tag articles_path, method: :get do |form| %>
+<%= form_with url: articles_path, method: :get, local: true do |form| %>
   <div class="input-group mb-3">
-    <%= text_field_tag :query, nil, { class: "form-control", placeholder: 'Fill in...' } %>
+    <%= form.text_field :query, class: "form-control", placeholder: 'Fill in...' %>
     <div class="input-group-append">
-      <%= submit_tag "Search", class: "btn btn-outline-secondary"%>
+      <%= form.submit "Search", class: "btn btn-outline-secondary"%>
     </div>
   </div>
 <% end %>

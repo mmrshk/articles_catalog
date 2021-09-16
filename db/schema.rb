@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_15_113024) do
+ActiveRecord::Schema.define(version: 2021_09_16_100824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -119,11 +119,12 @@ ActiveRecord::Schema.define(version: 2021_09_15_113024) do
       articles.tsv_category,
       action_text_rich_texts.body AS term,
       action_text_rich_texts.tsv_body AS tsv_term,
-      tags.name AS tag_name,
-      tags.tsv_name AS tsv_tag_name
+      array_agg(tags.name) AS tag_names,
+      to_tsvector('english'::regconfig, array_to_string(array_agg(tags.tsv_name), ' '::text)) AS tsv_tag_names
      FROM (((articles
        JOIN action_text_rich_texts ON (((action_text_rich_texts.record_id = articles.id) AND ((action_text_rich_texts.record_type)::text = 'Article'::text) AND ((action_text_rich_texts.name)::text = 'content'::text))))
        JOIN article_tags ON ((article_tags.article_id = articles.id)))
-       JOIN tags ON ((tags.id = article_tags.tag_id)));
+       JOIN tags ON ((tags.id = article_tags.tag_id)))
+    GROUP BY articles.id, action_text_rich_texts.body, action_text_rich_texts.tsv_body;
   SQL
 end

@@ -4,13 +4,13 @@
 #
 # Table name: articles_searches
 #
-#  article_id   :bigint           primary key
-#  category     :string
-#  tsv_category :tsvector
-#  term         :text
-#  tsv_term     :tsvector
-#  tag_name     :string
-#  tsv_tag_name :tsvector
+#  article_id    :bigint           primary key
+#  category      :string
+#  tsv_category  :tsvector
+#  term          :text
+#  tsv_term      :tsvector
+#  tag_names     :string           is an Array
+#  tsv_tag_names :tsvector
 #
 class ArticlesSearch < ApplicationRecord
   include PgSearch::Model
@@ -21,7 +21,7 @@ class ArticlesSearch < ApplicationRecord
     :tsv_articles_search,
     against: {
       category: 'A',
-      tag_name: 'B',
+      tag_names: 'B',
       term: 'C'
     },
     using: {
@@ -38,7 +38,7 @@ class ArticlesSearch < ApplicationRecord
           MaxFragments: 3,
           FragmentDelimiter: '&hellip;'
         },
-        tsvector_column: %i[tsv_category tsv_tag_name tsv_term]
+        tsvector_column: %i[tsv_category tsv_tag_names tsv_term]
       },
       trigram: {
         threshold: 0.35
