@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
-class Admins::ArticleUploadsController < ApplicationController
-  def new
-    @article_upload = ArticleUpload.new
-  end
+module Admins
+  class ArticleUploadsController < ApplicationController
+    def new
+      @article_upload = ArticleUpload.new
 
-  def upload
-    ArticleUploadService.call(params[:attachment], current_user)
+      authorize @article_upload
+    end
 
-    redirect_to root_path
+    def upload
+      ArticleUploadService.call(params[:attachment], current_user)
+
+      redirect_to root_path
+    end
   end
 end

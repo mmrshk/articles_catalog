@@ -19,8 +19,7 @@
 #  unconfirmed_email      :string
 #
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable, :validatable
 
   validates :email, :type, presence: true
 end

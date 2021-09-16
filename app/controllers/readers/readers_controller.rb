@@ -2,6 +2,8 @@
 
 module Readers
   class ReadersController < ApplicationController
-    def show; end
+    def show
+      authorize current_user, policy_class: ReaderPolicy
+    end
   end
 end

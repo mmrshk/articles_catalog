@@ -2,6 +2,7 @@ RemoveUnusedMethodsInControllersCheck: {
   except_methods: [
     'ArticlesController#create',
     'Readers::ArticlesController#index',
-    'Readers::ArticlesController#show'
+    'Readers::ArticlesController#show',
+    'Admins::AdminsController#show'
   ]
 }

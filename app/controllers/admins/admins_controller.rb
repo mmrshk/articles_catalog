@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
-class Admins::AdminsController < ApplicationController
-  def show; end
+module Admins
+  class AdminsController < ApplicationController
+    def show
+      authorize current_user, policy_class: AdminPolicy
+    end
+  end
 end

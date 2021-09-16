@@ -1,4 +1,6 @@
-Admin.create(email: 'admin@gmail.com', password: 'qwerty', password_confirmation: 'qwerty')
+admin = Admin.new(email: 'admin@gmail.com', password: 'qwerty', password_confirmation: 'qwerty')
+admin.skip_confirmation!
+admin.save!
 
 Tag.create(name: 'cooking', tsv_name: 'cooking')
 Tag.create(name: 'programming', tsv_name: 'programming')
