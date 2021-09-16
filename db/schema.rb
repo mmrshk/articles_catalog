@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2021_09_15_113024) do
 
   create_table "article_uploads", force: :cascade do |t|
     t.string "attachment"
+    t.text "upload_errors", default: [], array: true
     t.bigint "article_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -71,7 +72,6 @@ ActiveRecord::Schema.define(version: 2021_09_15_113024) do
     t.string "category"
     t.tsvector "tsv_category"
     t.tsvector "tsv_content"
-    t.text "upload_errors", default: [], array: true
     t.string "status", default: "draft", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

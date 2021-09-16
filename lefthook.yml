@@ -7,7 +7,7 @@ linters:
       run: bundle exec bundle audit
     3_rails_best_practices:
       glob: "*.rb"
-      run: bundle exec rails_best_practices {staged_files}
+      run: bundle exec rails_best_practices {staged_files} -c config/rails_best_practices.yml
     4_brakeman:
       run: bundle exec brakeman -o brakeman_output_file --faster
     # 5_database_consistency:

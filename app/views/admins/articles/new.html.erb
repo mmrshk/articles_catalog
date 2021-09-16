@@ -1,6 +1,6 @@
 <p class="font-weight-bold"> New article </p>
 
-<%= form_for @form, url: articles_path, method: "post" do |f| %>
+<%= form_for @form, as: :articles_form, url: articles_path, method: "post" do |f| %>
   <%= render partial: "errors" %>
 
   <div class="form-group">
@@ -17,7 +17,7 @@
 
   <div class="form-group">
     <%= f.label :content %>
-    <%= rich_text_area_tag "articles_base_form[content]", f.object.content %>
+    <%= rich_text_area_tag "articles_form[content]", f.object.content %>
   </div>
 
   <%= f.submit "Submit", class: "btn btn-primary" %>
