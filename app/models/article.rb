@@ -5,7 +5,7 @@
 # Table name: articles
 #
 #  id           :bigint           not null, primary key
-#  category     :string           not null
+#  category     :string
 #  tsv_category :tsvector
 #  tsv_content  :tsvector
 #  status       :string           default("draft"), not null
@@ -20,6 +20,7 @@ class Article < ApplicationRecord
 
   belongs_to :admin, foreign_key: 'user_id', inverse_of: :articles
 
+  has_one :article_upload, dependent: :destroy
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
 
@@ -35,6 +36,7 @@ class Article < ApplicationRecord
     state :in_process
     state :failed
     state :active
+    state :inactive
 
     event :in_process do
       transitions from: %i[draft failed], to: :in_process
@@ -45,7 +47,11 @@ class Article < ApplicationRecord
     end
 
     event :activate do
-      transitions from: %i[draft in_process failed], to: :active
+      transitions from: %i[draft in_process failed inactive], to: :active
+    end
+
+    event :inactivate do
+      transitions from: %i[draft active], to: :inactive
     end
   end
   # rubocop:enable Metrics/BlockLength

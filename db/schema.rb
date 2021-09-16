@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_06_072411) do
+ActiveRecord::Schema.define(version: 2021_09_09_091939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,8 +56,17 @@ ActiveRecord::Schema.define(version: 2021_09_06_072411) do
     t.index ["tag_id"], name: "index_article_tags_on_tag_id"
   end
 
+  create_table "article_uploads", force: :cascade do |t|
+    t.string "attachment"
+    t.text "upload_errors", default: [], array: true
+    t.bigint "article_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_article_uploads_on_article_id"
+  end
+
   create_table "articles", force: :cascade do |t|
-    t.string "category", null: false
+    t.string "category"
     t.tsvector "tsv_category"
     t.tsvector "tsv_content"
     t.string "status", default: "draft", null: false
@@ -97,5 +106,6 @@ ActiveRecord::Schema.define(version: 2021_09_06_072411) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
+  add_foreign_key "article_uploads", "articles"
   add_foreign_key "articles", "users"
 end

@@ -5,7 +5,7 @@
 # Table name: articles
 #
 #  id           :bigint           not null, primary key
-#  category     :string           not null
+#  category     :string
 #  tsv_category :tsvector
 #  tsv_content  :tsvector
 #  status       :string           default("draft"), not null

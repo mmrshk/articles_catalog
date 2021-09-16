@@ -36,6 +36,9 @@ gem 'pundit'
 gem 'sidekiq', '~> 6.1'
 gem 'sidekiq-batch', '~> 0.1.6'
 
+gem 'carrierwave'
+gem 'docx'
+
 group :development, :test do
   gem 'pry-rails'
 

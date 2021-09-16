@@ -2,10 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe ArticleForm do
-  subject(:form) { described_class.new(params).save }
+RSpec.describe Articles::UpdateForm do
+  subject(:form) { described_class.new(params, current_admin, article).save }
 
-  let!(:current_admin) { create(:admin) }
+  let(:current_admin) { create(:admin) }
+  let!(:article) { create(:article, user_id: current_admin.id) }
 
   let(:tags) { create_list(:tag, 2) }
   let(:content) { FFaker::Lorem.paragraph }
@@ -16,20 +17,19 @@ RSpec.describe ArticleForm do
       let(:params) do
         {
           content: content,
-          user_id: current_admin.id,
           category: category,
-          article_tags: { tag_ids: tags.pluck(:id) }
+          article_tags: { tag_ids: article.tags.pluck(:id) + tags.pluck(:id) }
         }
       end
 
-      it 'changes Articles count' do
-        expect { form }.to change(Article, :count).from(0).to(1)
+      it 'not changes Articles count' do
+        expect { form }.not_to change(Article, :count)
       end
 
       it 'changes ArticleTags count' do
-        expect { form }.to change(ArticleTag, :count).from(0).to(2)
+        expect { form }.to change(ArticleTag, :count).by(2)
 
-        expect(current_admin.articles.first.article_tags.count).to eq(2)
+        expect(current_admin.articles.first.article_tags.count).to eq(4)
       end
 
       it 'creates a new instance of Article with correct values' do
@@ -40,23 +40,18 @@ RSpec.describe ArticleForm do
         expect(article.content.to_plain_text).to eq(content)
         expect(article.category).to eq(category)
       end
-
-      it 'sets correct status' do
-        form
-
-        expect(current_admin.articles.first).to be_active
-      end
     end
   end
 
   describe 'fail' do
     context 'when user is reader' do
-      let!(:current_admin) { create(:reader) }
+      let(:current_admin) { create(:reader) }
+      let(:admin) { create(:admin) }
+      let!(:article) { create(:article, user_id: admin.id) }
 
       let(:params) do
         {
           content: content,
-          user_id: current_admin.id,
           category: category,
           article_tags: { tag_ids: tags.pluck(:id) }
         }
@@ -79,7 +74,6 @@ RSpec.describe ArticleForm do
       let(:params) do
         {
           content: '',
-          user_id: current_admin.id,
           category: '',
           article_tags: { tag_ids: [] }
         }
@@ -102,7 +96,6 @@ RSpec.describe ArticleForm do
       let(:params) do
         {
           content: content,
-          user_id: current_admin.id,
           category: category,
           article_tags: { tag_ids: [''] + tags.pluck(:id) }
         }
@@ -122,12 +115,11 @@ RSpec.describe ArticleForm do
     end
 
     context 'when raises error' do
-      before { allow(Article).to receive(:create!).and_raise(ActiveRecord::RecordInvalid) }
+      before { allow(article).to receive(:update!).and_raise(ActiveRecord::RecordInvalid) }
 
       let(:params) do
         {
           content: content,
-          user_id: current_admin.id,
           category: category,
           article_tags: { tag_ids: tags.pluck(:id) }
         }
