@@ -5,5 +5,5 @@
   <td>
     <%= link_to 'View', article_path(article.article_id)%>
   </td>
-  <td colspan="2"><%= article.term %></td>
+  <td colspan="2"><%= truncate(article.term, length: 100, escape: false).html_safe %></td>
 </tr>

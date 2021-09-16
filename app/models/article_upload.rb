@@ -4,11 +4,12 @@
 #
 # Table name: article_uploads
 #
-#  id         :bigint           not null, primary key
-#  attachment :string
-#  article_id :bigint
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :bigint           not null, primary key
+#  attachment    :string
+#  upload_errors :text             default([]), is an Array
+#  article_id    :bigint
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 class ArticleUpload < ApplicationRecord
   belongs_to :article, optional: true

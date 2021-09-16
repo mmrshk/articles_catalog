@@ -6,9 +6,9 @@ module Articles
       return false if invalid?
 
       ActiveRecord::Base.transaction do
+        destroy_article_upload!
         update_article!
         update_article_tags!
-        destroy_article_upload!
       rescue ActiveRecord::RecordInvalid => e
         errors.add(:base, e.message)
       end
@@ -26,7 +26,7 @@ module Articles
     end
 
     def destroy_article_upload!
-      article.article_upload.destroy!
+      article.article_upload&.destroy!
     end
   end
 end
