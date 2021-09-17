@@ -6,6 +6,8 @@ module Admins
 
     def new
       @form = Articles::BaseForm.new({}, current_user)
+
+      authorize @form
     end
 
     def create
@@ -20,6 +22,8 @@ module Admins
 
     def edit
       @form = Articles::BaseForm.new({}, current_user)
+
+      authorize @form
     end
 
     def update
@@ -52,6 +56,8 @@ module Admins
 
     def set_article
       @article = Article.find(params[:id])
+
+      authorize @article
     end
 
     def articles_params
