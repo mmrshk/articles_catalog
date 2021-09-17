@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 2021_09_16_100824) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["article_id", "tag_id"], name: "index_article_tags_on_article_id_and_tag_id", unique: true
-    t.index ["article_id"], name: "index_article_tags_on_article_id"
     t.index ["tag_id"], name: "index_article_tags_on_tag_id"
   end
 
