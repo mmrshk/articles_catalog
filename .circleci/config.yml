@@ -43,8 +43,6 @@ jobs:
           name: Install dependencies
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
 
-      - run: sudo apt install -y postgresql-client || true
-
       - run:
           name: Waiting for PostgreSQL to start
           command: |
@@ -55,6 +53,12 @@ jobs:
               sleep 2
             done
             echo Failed waiting for Postgres && exit 1
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+
+      - run: sudo apt install -y postgresql-client || true
 
       # Store bundle cache
       - save_cache:
