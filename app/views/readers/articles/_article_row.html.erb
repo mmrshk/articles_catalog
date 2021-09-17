@@ -1,0 +1,9 @@
+<tr>
+  <th scope="row"><%= article.article_id %></th>
+  <td><%= article.category %></td>
+  <td><%= article.tag_names %></td>
+  <td>
+    <%= link_to 'View', article_path(article.article_id)%>
+  </td>
+  <td colspan="2"><%= truncate(article.term, length: 100, escape: false).html_safe %></td>
+</tr>

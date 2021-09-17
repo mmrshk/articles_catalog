@@ -31,3 +31,6 @@ Style/Documentation:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false

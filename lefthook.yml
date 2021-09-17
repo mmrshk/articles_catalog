@@ -9,9 +9,9 @@ linters:
       glob: "*.rb"
       run: bundle exec rails_best_practices {staged_files} -c config/rails_best_practices.yml
     4_brakeman:
-      run: bundle exec brakeman -o brakeman_output_file --faster
-    # 5_database_consistency:
-      # run: bundle exec database_consistency
+      run: bundle exec brakeman -o brakeman_output_file --faster --ignore-model-output
+    5_database_consistency:
+      run: bundle exec database_consistency
 
 generators:
   parallel: true

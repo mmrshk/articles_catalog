@@ -46,6 +46,9 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # Dumping the database schema to a file structure.sql
+  config.active_record.schema_format = :sql
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 end

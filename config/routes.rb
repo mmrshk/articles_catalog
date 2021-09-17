@@ -14,17 +14,24 @@ Rails.application.routes.draw do
 
   root 'redirect#index'
 
-  resources :admins, only: :show
-  resources :readers, only: :show
-  resources :articles do
-    member do
-      post 'activate'
+  scope module: 'admins' do
+    resources :admins, only: :show
+
+    resources :articles, except: %i[index show] do
+      member do
+        post 'activate'
+      end
+    end
+
+    resources :article_uploads do
+      collection do
+        post 'upload'
+      end
     end
   end
 
-  resources :article_uploads do
-    collection do
-      post 'upload'
-    end
+  scope module: 'readers' do
+    resources :readers, only: :show
+    resources :articles, only: %i[index show]
   end
 end

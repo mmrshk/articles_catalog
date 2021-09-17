@@ -1,1 +1,7 @@
-RemoveUnusedMethodsInControllersCheck: { except_methods: ['ArticlesController#create'] }
+RemoveUnusedMethodsInControllersCheck: {
+  except_methods: [
+    'ArticlesController#create',
+    'Readers::ArticlesController#index',
+    'Readers::ArticlesController#show'
+  ]
+}

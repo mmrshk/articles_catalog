@@ -1,0 +1,10 @@
+<%= form_with url: articles_path, method: :get, local: true do |form| %>
+  <div class="input-group mb-3">
+    <%= form.text_field :query, class: "form-control", placeholder: 'Fill in...' %>
+    <div class="input-group-append">
+      <%= form.submit "Search", class: "btn btn-outline-secondary"%>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: "articles_table", articles_searches: @articles_searches %>

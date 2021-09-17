@@ -11,6 +11,7 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # Database logic
 gem 'aasm'
 gem 'pg'
+gem 'scenic'
 
 # FTS
 gem 'pg_search'

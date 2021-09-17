@@ -10,8 +10,5 @@ class CreateArticles < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-
-    add_index :articles, :tsv_category, using: :gin
-    add_index :articles, :tsv_content, using: :gin
   end
 end
