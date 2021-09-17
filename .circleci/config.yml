@@ -28,9 +28,9 @@ jobs:
           - v1-dependencies-
 
       - run:
-        name: install postgresql-client
-        command: |
-          sudo apt-get install postgresql-client
+          name: install postgresql-client
+          command: |
+            sudo apt-get install postgresql-client
 
       - run:
           name: install dependencies
