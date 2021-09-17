@@ -44,5 +44,3 @@ yarn-debug.log*
 brakeman_output_file
 
 dump.rdb
-
-/db/structure.sql
