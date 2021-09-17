@@ -1,0 +1,19 @@
+services:
+  database:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - ./.docker/volumes/database:/var/lib/postgresql/data
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    volumes:
+      - ./var/www/articles_catalog:/var/www/articles_catalog
