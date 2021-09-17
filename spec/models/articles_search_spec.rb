@@ -22,7 +22,7 @@ RSpec.describe ArticlesSearch, type: :model do
     let(:current_admin) { create(:admin) }
     let(:category) { 'Test' }
 
-    it '' do
+    xit '' do
       expect(search.count).to eq(2)
     end
   end
