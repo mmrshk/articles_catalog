@@ -25,7 +25,7 @@ jobs:
 
       - image: circleci/postgres:13.3
         environment:
-          POSTGRES_USER: root
+          # POSTGRES_USER: root
           POSTGRES_DB: articles_catalog_test
 
     steps:
