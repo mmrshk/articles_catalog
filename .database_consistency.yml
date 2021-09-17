@@ -2,3 +2,9 @@
 DatabaseConsistencySettings:
   color: true
   log_level: DEBUG
+
+DatabaseConsistencyCheckers:
+  UniqueIndexChecker:
+    enabled: false
+  NullConstraintChecker:
+    enabled: false
