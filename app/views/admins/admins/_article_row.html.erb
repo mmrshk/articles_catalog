@@ -1,5 +1,5 @@
 <tr>
-  <th scope="row"><%= article.id %></th>
+  <td scope="row"><%= article.id %></td>
   <td><%= article.category || 'No Category' %></td>
   <td><%= article.status %></td>
   <td><%= article.tags.pluck(:name).join(',') %></td>
