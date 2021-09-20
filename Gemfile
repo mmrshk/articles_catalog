@@ -65,7 +65,7 @@ group :test do
   gem 'ffaker'
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
-  # gem 'capybara', '>= 2.15'
+  # gem 'capybara'
   # gem 'selenium-webdriver'
   # gem 'webdrivers'
 end

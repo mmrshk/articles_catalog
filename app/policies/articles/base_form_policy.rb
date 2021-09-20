@@ -9,5 +9,9 @@ module Articles
     def edit?
       admin?
     end
+
+    def create?
+      admin?
+    end
   end
 end

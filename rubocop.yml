@@ -34,3 +34,12 @@ RSpec/MultipleExpectations:
 
 RSpec/LetSetup:
   Enabled: false
+
+RSpec/RepeatedExampleGroupBody:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
