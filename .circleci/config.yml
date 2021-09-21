@@ -28,8 +28,8 @@ jobs:
           - v1-dependencies-
 
       - run:
-        name: install postgresql-client
-        command: |
+          name: install postgresql-client
+          command: |
             wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc 12 | sudo apt-key add -
             sudo sh -c 'echo “deb http://apt.postgresql.org/pub/repos/apt/ 13 trusty-pgdg main” >> /etc/apt/sources.list.d/postgresql.list’
             sudo apt-get update; sudo apt-get install postgresql-client-12.0

@@ -8,10 +8,12 @@ set :repo_url, 'git@github.com:mmrshk/articles_catalog.git'
 set :user, 'ubuntu'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
+set :branch, 'main'
 
 append :linked_files, *%w(
   config/database.yml
   config/secrets.yml
+  config/master.key
 )
 
 append :linked_dirs, *%w(
@@ -22,6 +24,7 @@ append :linked_dirs, *%w(
   tmp/pids
   tmp/sockets
   vendor/bundle
+  .bundle
 )
 
 # set :rvm_type, :user
