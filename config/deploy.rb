@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock '~> 3.16.0'
 
-server 'ec2-18-220-228-28.us-east-2.compute.amazonaws.com', post: '18.220.228.28', user: 'ubuntu', roles: %w{app db web}, primary: true
+server 'ec2-3-142-80-54.us-east-2.compute.amazonaws.com', post: '3.142.80.54', user: 'ubuntu', roles: %w{app db web}, primary: true
 
 set :application, 'articles_catalog'
 set :repo_url, 'git@github.com:mmrshk/articles_catalog.git'
@@ -61,8 +61,8 @@ namespace :deploy do
   task upload_configs: ['deploy:check:linked_dirs'] do
     on roles(:all) do
       execute "mkdir -p #{shared_path}/config"
-      upload! 'config/database.production.yml', "#{deploy_to}/shared/config/database.yml"
-      upload! 'config/secrets.production.yml', "#{deploy_to}/shared/config/secrets.yml"
+      upload! 'config/database.yml', "#{deploy_to}/shared/config/database.yml"
+      upload! 'config/credentials.yml.enc', "#{deploy_to}/shared/config/secrets.yml"
     end
   end
 
