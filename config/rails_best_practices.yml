@@ -3,7 +3,6 @@ RemoveUnusedMethodsInControllersCheck: {
     'ArticlesController#create',
     'Readers::ArticlesController#index',
     'Readers::ArticlesController#show',
-    'Admins::AdminsController#show',
-    'Admins::ArticleUploadsController#upload'
+    'Admins::AdminsController#show'
   ]
 }

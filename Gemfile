@@ -67,10 +67,10 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
   gem 'ffaker'
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
+  # gem 'capybara', '>= 2.15'
   # gem 'selenium-webdriver'
   # gem 'webdrivers'
 end

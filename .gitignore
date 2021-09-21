@@ -42,3 +42,7 @@ yarn-debug.log*
 .yarn-integrity
 
 brakeman_output_file
+
+dump.rdb
+
+/db/structure.sql
