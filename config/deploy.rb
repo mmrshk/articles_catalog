@@ -1,12 +1,13 @@
 # config valid for current version and patch releases of Capistrano
 lock '~> 3.16.0'
 
-server 'ec2-3-142-80-54.us-east-2.compute.amazonaws.com', post: '3.142.80.54', user: 'ubuntu', roles: %w{app db web}, primary: true
+server 'ec2-3-128-160-236.us-east-2.compute.amazonaws.com', post: '3.128.160.236', user: 'ubuntu', roles: %w{app db web}, primary: true
 
 set :application, 'articles_catalog'
 set :repo_url, 'git@github.com:mmrshk/articles_catalog.git'
 set :user, 'ubuntu'
-ask :branch, :main
+set :puma_threads,    [4, 16]
+set :puma_workers,    0
 
 append :linked_files, *%w(
   config/database.yml
@@ -23,10 +24,8 @@ append :linked_dirs, *%w(
   vendor/bundle
 )
 
-set :keep_releases, 5
-
-set :rvm_type, :user
-set :rvm_ruby_version, 'ruby-2.7.1'
+# set :rvm_type, :user
+# set :rvm_ruby_version, 'ruby-2.7.1'
 
 # Puma config
 set :pty,             true
@@ -43,6 +42,8 @@ set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+
+set :keep_releases, 5
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'

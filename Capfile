@@ -32,10 +32,11 @@ install_plugin Capistrano::SCM::Git
 # require "capistrano/chruby"
 # require "capistrano/passenger"
 
-require 'capistrano/rvm'
-require 'capistrano/bundler'
 require 'capistrano/rails'
+require 'capistrano/bundler'
+require 'capistrano/rvm'
 require 'capistrano/puma'
+
 install_plugin Capistrano::Puma
 install_plugin Capistrano::Puma::Daemon
 
