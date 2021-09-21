@@ -9,9 +9,8 @@ module Admins
     end
 
     def upload
-      authorize current_user, policy_class: ArticleUploadPolicy
-
       ArticleUploadService.call(params[:attachment], current_user)
+
       redirect_to root_path
     end
   end
