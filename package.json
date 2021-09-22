@@ -16,7 +16,8 @@
     "popper.js": "^1.16.1",
     "turbolinks": "^5.2.0",
     "trix": "^1.2.0",
-    "css-loader": "^6.3.0"
+    "css-loader": "^6.3.0",
+    "sass-loader": "^12.1.0"
   },
   "version": "0.1.0",
   "devDependencies": {
