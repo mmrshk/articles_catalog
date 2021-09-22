@@ -16,4 +16,4 @@ test:
 production:
   <<: *default
   database: articles_catalog_production
-  username: postgres
+  password: root
