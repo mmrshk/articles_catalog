@@ -12,7 +12,6 @@ set :branch, 'main'
 
 append :linked_files, *%w(
   config/database.yml
-  config/secrets.yml
   config/master.key
 )
 
