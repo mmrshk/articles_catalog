@@ -3,7 +3,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "webpack": "^4.41.2",
+    "webpack": "4.28.1",
     "webpack-cli": "^3.3.10",
     "@popperjs/core": "^2.10.0",
     "@rails/actioncable": "^6.0.0",
@@ -19,6 +19,6 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^4.1.0"
+    "webpack-dev-server": "3.11.2"
   }
 }
