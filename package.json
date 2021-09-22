@@ -1,7 +1,10 @@
 {
   "name": "articles_catalog",
+  "license": "MIT",
   "private": true,
   "dependencies": {
+    "webpack": "^4.41.2",p
+    "webpack-cli": "^3.3.10",
     "@popperjs/core": "^2.10.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/actiontext": "^6.0.4-1",
