@@ -3,7 +3,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   encoding: unicode
   username: root
-  password:
+  password: root
 
 development:
   <<: *default
