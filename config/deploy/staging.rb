@@ -11,7 +11,7 @@ set :rails_env, 'staging'
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'staging'))
 server '<staging server public IP address>', user: 'ubuntu', roles: %w{web app db}
 
-server 'ec2-3-128-160-236.us-east-2.compute.amazonaws.com:3020', post: '3.128.160.236', user: 'ubuntu', roles: %w{app db web}, primary: true
+server 'ec2-3-128-160-236.us-east-2.compute.amazonaws.com', post: '3.128.160.236', user: 'ubuntu', roles: %w{app db web}, primary: true
 set :branch,          'staging'
 set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}/staging"
 set :stage, :staging

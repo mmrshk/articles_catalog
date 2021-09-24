@@ -21,10 +21,10 @@
 
 set :rails_env, 'production'
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
-server 'ec2-3-128-160-236.us-east-2.compute.amazonaws.com:3000', post: '3.128.160.236', user: 'ubuntu', roles: %w{app db web}, primary: true
+server 'ec2-3-128-160-236.us-east-2.compute.amazonaws.com', post: '3.128.160.236', user: 'ubuntu', roles: %w{app db web}, primary: true
 
 set :branch,          'main'
-set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}/production"
+set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}/"
 set :stage,   :production
 
 # Configuration
