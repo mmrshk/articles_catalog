@@ -3,7 +3,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   encoding: unicode
   username: root
-  password: 
+  password:
 
 development:
   <<: *default
@@ -16,3 +16,7 @@ test:
 production:
   <<: *default
   database: articles_catalog_production
+
+staging:
+  <<: *default
+  database: articles_catalog_staging
