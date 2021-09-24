@@ -9,6 +9,7 @@ set :user, 'ubuntu'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 set :branch, 'main'
+set :rbenv_ruby, '2.7.1'
 
 append :linked_files, *%w(
   config/database.yml
@@ -56,7 +57,39 @@ namespace :puma do
   before :start, :make_dirs
 end
 
+namespace :sidekiq do
+  task :restart do
+    invoke 'sidekiq:stop'
+    invoke 'sidekiq:start'
+  end
+
+  before 'deploy:finished', 'sidekiq:restart'
+
+  task :stop do
+    on roles(:app) do
+      within current_path do
+        pid = p capture "ps aux | grep sidekiq | awk '{print $2}' | sed -n 1p"
+        execute("kill -9 #{pid}")
+      end
+    end
+  end
+
+  task :start do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, "exec sidekiq -e #{fetch(:stage)} -C config/sidekiq.yml -d"
+      end
+    end
+  end
+end
+
 namespace :deploy do
+  desc "Remove all but the last release"
+  task :cleanup_all do
+      set :keep_releases, 1
+      invoke "deploy:cleanup"
+  end
+
   desc 'Upload config files'
   task upload_configs: ['deploy:check:linked_dirs'] do
     on roles(:all) do
@@ -85,16 +118,16 @@ namespace :deploy do
     end
   end
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      invoke 'puma:restart'
-    end
-  end
+  # desc 'Restart application'
+  # task :restart do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     invoke 'puma:restart'
+  #   end
+  # end
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
-  after  :finishing,    :cleanup
-  after  :finishing,    :restart
+  after  :finishing,    :cleanup_all
+  # after  :finishing,    :restart
 end
 

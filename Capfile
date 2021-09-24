@@ -36,6 +36,7 @@ require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/rvm'
 require 'capistrano/puma'
+require 'capistrano/sidekiq'
 
 install_plugin Capistrano::Puma
 install_plugin Capistrano::Puma::Daemon
