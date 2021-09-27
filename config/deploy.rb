@@ -9,6 +9,8 @@ set :puma_workers,    0
 set :branch, 'main'
 set :rbenv_ruby, '2.7.1'
 
+server 'ec2-3-128-160-236.us-east-2.compute.amazonaws.com', post: '3.128.160.236', user: 'ubuntu', roles: %w{app db web}, primary: true
+
 append :linked_files, *%w(
   config/database.yml
   config/master.key
