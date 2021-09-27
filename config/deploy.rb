@@ -9,7 +9,7 @@ set :puma_workers,    0
 set :branch, 'main'
 set :rbenv_ruby, '2.7.1'
 
-server 'ec2-3-128-160-236.us-east-2.compute.amazonaws.com', post: '3.128.160.236', user: 'ubuntu', roles: %w{app db web}, primary: true
+server 'ec2-3-23-79-24.us-east-2.compute.amazonaws.com', post: '3.23.79.24', user: 'ubuntu', roles: %w{app db web}, primary: true
 
 append :linked_files, *%w(
   config/database.yml
@@ -32,11 +32,6 @@ set :pty,             true
 set :use_sudo,        false
 set :stage,           :production
 set :deploy_via,      :remote_cache
-set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
-set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
-set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
-set :puma_access_log, "#{release_path}/log/puma.error.log"
-set :puma_error_log,  "#{release_path}/log/puma.access.log"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
@@ -117,12 +112,12 @@ namespace :deploy do
     end
   end
 
-  # desc 'Restart application'
-  # task :restart do
-  #   on roles(:app), in: :sequence, wait: 5 do
-  #     invoke 'puma:restart'
-  #   end
-  # end
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      invoke 'puma:restart'
+    end
+  end
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
