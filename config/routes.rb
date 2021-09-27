@@ -32,6 +32,10 @@ Rails.application.routes.draw do
 
   scope module: 'readers' do
     resources :readers, only: :show
-    resources :articles, only: %i[index show]
+    resources :articles, only: %i[index show] do
+      collection do
+        get 'search'
+      end
+    end
   end
 end

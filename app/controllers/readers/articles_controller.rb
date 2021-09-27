@@ -8,6 +8,21 @@ module Readers
       authorize @articles_searches
     end
 
+    def search
+      # @articles_searches = Article.__elasticsearch__.search(params[:query]).results
+
+      @articles_searches = Article.__elasticsearch__.search(
+        query: {
+          multi_match: {
+            query: params[:query],
+            fields: ['category', 'author.first_name']
+          }
+        }
+      ).results
+
+      authorize @articles_searches, policy_class: ArticlesSearchPolicy
+    end
+
     def show
       @articles_search = ArticlesSearch.find(params[:id])
 

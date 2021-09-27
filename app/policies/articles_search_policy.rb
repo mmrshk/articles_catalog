@@ -5,6 +5,10 @@ class ArticlesSearchPolicy < ApplicationPolicy
     reader?
   end
 
+  def search?
+    reader?
+  end
+
   def show?
     reader?
   end

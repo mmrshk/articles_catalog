@@ -40,6 +40,10 @@ gem 'sidekiq-batch', '~> 0.1.6'
 gem 'carrierwave'
 gem 'docx'
 
+# Search
+gem 'elasticsearch-model'
+gem 'faraday_middleware-aws-signers-v4'
+
 group :development, :test do
   gem 'pry-rails'
 
