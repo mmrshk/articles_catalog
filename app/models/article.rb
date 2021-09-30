@@ -7,7 +7,6 @@
 #  id           :bigint           not null, primary key
 #  category     :string
 #  tsv_category :tsvector
-#  tsv_content  :tsvector
 #  status       :string           default("draft"), not null
 #  user_id      :bigint           not null
 #  created_at   :datetime         not null
@@ -15,8 +14,7 @@
 #
 class Article < ApplicationRecord
   include AASM
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  include ElasticSearchable
 
   has_rich_text :content
 
@@ -57,18 +55,4 @@ class Article < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/BlockLength
-
-  # def as_indexed_json(_options = {})
-  #   as_json(
-  #     only: %i[id category],
-  #     include: {
-  #       # content: {
-  #       #   only: [:body]
-  #       # },
-  #       tags: {
-  #         only: [:name]
-  #       }
-  #     }
-  #   )
-  # end
 end

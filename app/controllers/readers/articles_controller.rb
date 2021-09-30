@@ -9,16 +9,7 @@ module Readers
     end
 
     def search
-      # @articles_searches = Article.__elasticsearch__.search(params[:query]).results
-
-      @articles_searches = Article.__elasticsearch__.search(
-        query: {
-          multi_match: {
-            query: params[:query],
-            fields: ['category', 'author.first_name']
-          }
-        }
-      ).results
+      @articles_searches = Article.search(params[:query]).results
 
       authorize @articles_searches, policy_class: ArticlesSearchPolicy
     end
