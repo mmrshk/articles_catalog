@@ -58,17 +58,17 @@ class Article < ApplicationRecord
   end
   # rubocop:enable Metrics/BlockLength
 
-  def as_indexed_json(_options = {})
-    as_json(
-      only: %i[id category],
-      include: {
-        action_text_rich_texts: {
-          only: [:body]
-        },
-        tags: {
-          only: [:name]
-        }
-      }
-    )
-  end
+  # def as_indexed_json(_options = {})
+  #   as_json(
+  #     only: %i[id category],
+  #     include: {
+  #       # content: {
+  #       #   only: [:body]
+  #       # },
+  #       tags: {
+  #         only: [:name]
+  #       }
+  #     }
+  #   )
+  # end
 end
