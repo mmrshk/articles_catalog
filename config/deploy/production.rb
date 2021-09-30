@@ -21,12 +21,16 @@
 
 set :rails_env, 'production'
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
-server 'ec2-3-128-160-236.us-east-2.compute.amazonaws.com', post: '3.128.160.236', user: 'ubuntu', roles: %w{app db web}, primary: true
 
 set :branch,    'main'
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 set :stage,     :production
 
+set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
+set :puma_access_log, "#{release_path}/log/puma.error.log"
+set :puma_error_log,  "#{release_path}/log/puma.access.log"
+set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
 # Configuration
 # =============
 # You can set any configuration variable like in config/deploy.rb
