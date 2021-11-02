@@ -119,7 +119,7 @@ namespace :deploy do
     end
   end
 
-  before :starting,     :check_revision
+  # before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup_all
   # after  :finishing,    :restart
