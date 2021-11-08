@@ -8,6 +8,12 @@ module Readers
       authorize @articles_searches
     end
 
+    def search
+      @articles_searches = Article.search(params[:query]).results
+
+      authorize @articles_searches, policy_class: ArticlesSearchPolicy
+    end
+
     def show
       @articles_search = ArticlesSearch.find(params[:id])
 

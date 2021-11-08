@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_16_100824) do
+ActiveRecord::Schema.define(version: 2021_09_30_083921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -70,13 +70,11 @@ ActiveRecord::Schema.define(version: 2021_09_16_100824) do
   create_table "articles", force: :cascade do |t|
     t.string "category"
     t.tsvector "tsv_category"
-    t.tsvector "tsv_content"
     t.string "status", default: "draft", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tsv_category"], name: "index_articles_on_tsv_category", using: :gin
-    t.index ["tsv_content"], name: "index_articles_on_tsv_content", using: :gin
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
